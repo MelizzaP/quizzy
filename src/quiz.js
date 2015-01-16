@@ -7,6 +7,7 @@
   //Private
   Quiz.questions = [];
   var idCounter = 100;
+  var avg = 1;
   
   //Transaction Script
   Quiz.addQuestion = function (question) {
@@ -29,7 +30,10 @@
 */
   Quiz.grade = function (answers) {
     var results = answers.map(answerQuestion)
-    var score = results.filter(identity.length)
+    var score = results.filter(Boolean).length
+    avg = score/avg;
+    avg += 1;
+    return { correct: score, total: Quiz.questions.length, avg: avg}
   }
   
   function answerQuestion (answer){
